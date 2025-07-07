@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SkyWings - Airline Reservation</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+  <style>
+    /* Global styles */
+    * {
+      font-size: x-large;
+    }
+
+    /* Custom class names */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    .nav {
+      background-color: #1e40af; /* Blue */
+      color: white;
+      padding: 1rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-item {
+      padding: 0.5rem;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+
+    .nav-item:hover {
+      color: #60a5fa; /* Lighter blue */
+    }
+
+    .section-heading {
+      font-size: 2.25rem;
+      font-weight: bold;
+      color: #1e40af; /* Blue */
+      margin-bottom: 1rem;
+    }
+
+    .section-text {
+      font-size: 1.125rem;
+      margin-bottom: 1.5rem;
+      color: #4b5563; /* Gray */
+    }
+
+    .button {
+      background-color: #2563eb; /* Blue */
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 9999px;
+      font-weight: 600;
+      transition: background-color 0.3s ease;
+    }
+
+    .button:hover {
+      background-color: #1d4ed8; /* Darker blue */
+    }
+
+    .feature-box {
+      border: 1px solid black;
+      padding: 3rem;
+      text-align: center;
+    }
+
+    .feature-icon {
+      font-size: 2.5rem;
+      color: #2563eb; /* Blue */
+      margin-bottom: 1rem;
+    }
+
+    .feature-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .feature-text {
+      color: #4b5563; /* Gray */
+    }
+  </style>
+</head>
+<body class="bg-white text-gray-800">
+
+  <nav class="nav">
+    <div class="container flex justify-between items-center">
+      <h1 class="text-2xl font-bold">SkyWings</h1>
+      <ul class="flex space-x-6">
+        <li><a href="#" class="nav-item">Home</a></li>
+        <li><a href="#" class="nav-item">Book</a></li>
+        <li><a href="#" class="nav-item">Check-In</a></li>
+        <li><a href="#" class="nav-item">My Trips</a></li>
+        <li><a href="#" class="nav-item">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <section class="bg-blue-50 py-20">
+    <div class="container text-center">
+      <h2 class="section-heading">Fly High with SkyWings</h2>
+      <p class="section-text">Book flights easily, check in smoothly, and travel with comfort.</p>
+      <a href="#" class="button">Book Now</a>
+    </div>
+  </section>
+
+  <section class="py-16 bg-white">
+    <div class="container">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+        <div class="feature-box">
+          <i class="fas fa-plane-departure feature-icon"></i>
+          <h3 class="feature-title">Book Flights</h3>
+          <p class="feature-text">Find the best deals and book domestic or international flights easily.</p>
+        </div>
+        <div class="feature-box">
+          <i class="fas fa-check-circle feature-icon"></i>
+          <h3 class="feature-title">Easy Check-In</h3>
+          <p class="feature-text">Use online check-in to save time and avoid long queues at the airport.</p>
+        </div>
+        <div class="feature-box">
+          <i class="fas fa-suitcase-rolling feature-icon"></i>
+          <h3 class="feature-title">Manage Trips</h3>
+          <p class="feature-text">Access your travel itinerary and make changes anytime, anywhere.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>
