@@ -5,121 +5,178 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SkyWings - Home</title>
   <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      margin: 0;
-      background: #f9f9f9;
-    }
-
-    
-    nav {
-      background: rgba(30,64,175,0.9);
-      color: #fff;
-      padding: 15px 50px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-    }
-
-    nav h1 { margin:0; font-size: 28px; letter-spacing: 1px; }
-
-    nav ul {
-      list-style:none;
-      display:flex;
-      gap:25px;
-      margin:0;
-      align-items:center;
-    }
-
-    nav a, nav button {
-      color:#fff;
-      text-decoration:none;
-      font-weight:bold;
-      border:none;
-      background:none;
-      cursor:pointer;
-      transition: 0.3s;
-    }
-
-    nav a:hover, nav button:hover { color:#a0c4ff; }
-
-   
-    .hero {
-  position: relative;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  color: #fff;
-  background: url('image.png') no-repeat center center;
-  background-size: cover; 
+body {
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    background: #f5f7fa;
+    color: #333;
 }
 
 
-    .hero::after {
-      content: "";
-      position: absolute;
-      top:0; left:0; right:0; bottom:0;
-      background: rgba(0,0,0,0.4); 
-      z-index:1;
-    }
+nav {
+    background: rgba(30, 64, 175, 0.95); 
+    color: #fff;
+    padding: 15px 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
 
-    .hero-content {
-      position: relative;
-      z-index: 2;
-      max-width: 800px;
-      padding: 0 20px;
-    }
+nav h1 {
+    margin: 0;
+    font-size: 28px;
+    letter-spacing: 1px;
+}
 
-    .hero h2 {
-      font-size: 50px;
-      margin-bottom: 20px;
-      text-shadow: 2px 2px 6px rgba(0,0,0,0.5);
-    }
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 25px;
+    margin: 0;
+    align-items: center;
+}
 
-    .hero p {
-      font-size: 20px;
-      margin-bottom: 30px;
-      text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
-    }
+nav a, nav button {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    border: none;
+    background: none;
+    cursor: pointer;
+    transition: 0.3s;
+}
 
-    .btn {
-      background: #1e40af;
-      color: #fff;
-      padding: 15px 30px;
-      border-radius: 8px;
-      font-size: 18px;
-      text-decoration: none;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-      transition: all 0.3s ease;
-    }
+nav a:hover, nav button:hover {
+    color: #ffd166;
+}
 
-    .btn:hover {
-      background: #0f2a75;
-      transform: translateY(-3px);
-      box-shadow: 0 6px 15px rgba(0,0,0,0.4);
-    }
 
-    footer {
-      text-align: center;
-      padding: 20px;
-      background: #1e40af;
-      color: #fff;
-      font-size: 14px;
-    }
+.hero {
+    position: relative;
+    height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #fff;
+    background: url('image.png') no-repeat center center/cover;
+}
 
-   
-    @media(max-width:768px){
-      .hero h2 { font-size: 36px; }
-      .hero p { font-size: 16px; }
-      nav { flex-direction: column; gap: 10px; padding:15px; }
-      nav ul { flex-wrap: wrap; justify-content: center; gap:15px; }
-    }
-  </style>
+.hero::after {
+    content: "";
+    position: absolute;
+    top:0; left:0; right:0; bottom:0;
+    background: rgba(0,0,0,0.4);
+    z-index:1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+    padding: 0 20px;
+}
+
+.hero h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+}
+
+.hero p {
+    font-size: 20px;
+    margin-bottom: 30px;
+    text-shadow: 1px 1px 6px rgba(0,0,0,0.5);
+}
+
+.hero-button {
+    background: #ffd166;
+    color: #1e40af;
+    padding: 15px 35px;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: bold;
+    text-decoration: none;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+    transition: all 0.3s ease;
+}
+
+.hero-button:hover {
+    background: #fcbf49;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+}
+
+.benefits-section {
+    padding: 80px 20px;
+    background: #f5f7fa;
+    text-align: center;
+}
+
+.benefits-section h2 {
+    font-size: 36px;
+    margin-bottom: 50px;
+    color: #1e40af;
+}
+
+.benefits-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+}
+
+.benefit-card {
+    background: #fff;
+    padding: 30px 20px;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    max-width: 280px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.benefit-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+.benefit-card i {
+    font-size: 40px;
+    color: #1e40af;
+    margin-bottom: 15px;
+}
+
+.benefit-card h3 {
+    font-size: 22px;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.benefit-card p {
+    font-size: 16px;
+    color: #555;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    background: #1e40af;
+    color: #fff;
+    font-size: 14px;
+}
+
+@media(max-width:768px){
+    .hero h1 { font-size: 36px; }
+    .hero p { font-size: 16px; }
+    nav { flex-direction: column; gap: 10px; padding:15px; }
+    nav ul { flex-wrap: wrap; justify-content: center; gap:15px; }
+    .benefits-grid { flex-direction: column; align-items: center; }
+}
+</style>
   <script>
     window.onload = () => {
       if (localStorage.getItem("isLoggedIn") !== "true") {
@@ -148,13 +205,38 @@
     </ul>
   </nav>
 
-  <section class="hero">
-    <div class="hero-content">
-      <h2>Fly High with SkyWings</h2>
-      <p>Book flights easily, check in smoothly, and travel with comfort.</p>
-      <a href="book.html" class="btn">Book Now</a>
-    </div>
-  </section>
+   <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Your Journey, Our Priority</h1>
+                <p>Experience the world with unparalleled comfort and convenience.</p>
+                <a href="book.html" class="hero-button">Book Now</a>
+            </div>
+        </section>
+
+        <section class="benefits-section">
+            <div class="container">
+                <h2>Why Book With Us?</h2>
+                <div class="benefits-grid">
+                    <div class="benefit-card">
+                        <i class="fas fa-ticket-alt"></i>
+                        <h3>Best Fares Guaranteed</h3>
+                        <p>Access the most competitive prices and special deals for your travel.</p>
+                    </div>
+                    <div class="benefit-card">
+                        <i class="fas fa-shield-alt"></i>
+                        <h3>Secure & Easy Booking</h3>
+                        <p>Our platform offers a safe and secure way to book your flights in minutes.</p>
+                    </div>
+                    <div class="benefit-card">
+                        <i class="fas fa-headset"></i>
+                        <h3>24/7 Customer Support</h3>
+                        <p>Our dedicated team is always ready to assist you with any questions or concerns.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
 
   <footer>
     &copy; 2025 SkyWings Airlines. All Rights Reserved.

@@ -1,50 +1,63 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SkyWings - Book Flight</title>
-  <link rel="stylesheet" href="styles.css">
-  <script>
-    function bookFlight(event) {
-      event.preventDefault();
-      const from = document.getElementById("from").value;
-      const to = document.getElementById("to").value;
-      const dateInput = document.getElementById("date").value;
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book a Flight</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+        body { font-family: 'Poppins', sans-serif; background: url('image.png') no-repeat center center;
+  background-size: cover; color: #2c3e50; margin:0; }
+        .container { max-width:1100px; margin:auto; padding:20px; }
+        nav {
+    background: rgba(30, 64, 175, 0.95); 
+    color: #fff;
+    padding: 15px 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
 
-      if (!dateInput) {
-        alert("Please select a date.");
-        return;
-      }
+nav h1 {
+    margin: 0;
+    color:#fff;
+    font-size: 28px;
+    letter-spacing: 1px;
+}
 
-      const today = new Date();
-      today.setHours(0,0,0,0);
-      const selectedDate = new Date(dateInput);
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 25px;
+    margin: 0;
+    align-items: center;
+}
 
-      if (selectedDate < today) {
-        alert("Invalid date! Please choose a future date.");
-        return;
-      }
+nav a, nav button {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
 
-      const trips = JSON.parse(localStorage.getItem("trips")) || [];
-      trips.push({ from, to, date: dateInput });
-      localStorage.setItem("trips", JSON.stringify(trips));
-      alert("Flight booked successfully!");
-      window.location.href = "trips.html";
-    }
+nav a:hover, nav button:hover {
+  color: #a0c4ff;
+}
 
-    window.onload = () => {
-      if (localStorage.getItem("isLoggedIn") !== "true") {
-        alert("Please login first!");
-        window.location.href = "login.html";
-      }
-    }
-
-    function logout() {
-      localStorage.setItem("isLoggedIn","false");
-      window.location.href = "login.html";
-    }
-  </script>
+        h1 { color:#0056b3; text-align:center; margin-bottom:20px; margin:0; font-weight: bold;}
+        .flight-list { display:flex; flex-wrap:wrap; gap:20px; justify-content:center; }
+        .flight-card { background:#fff; padding:20px; border-radius:10px; box-shadow:0 4px 10px rgba(0,0,0,0.1); min-width:300px; cursor:pointer; transition: transform 0.3s ease; }
+        .flight-card:hover { transform:translateY(-5px); background-color:#e6f7ff; }
+        .pagination { display:flex; justify-content:center; margin-top:30px; gap:15px; }
+        .pagination button { padding:10px 15px; border:none; border-radius:5px; background:#0056b3; color:#fff; font-weight:600; cursor:pointer; }
+        .pagination button:disabled { background:#ccc; cursor:not-allowed; }
+    </style>
 </head>
 <body>
   <nav>
@@ -59,20 +72,75 @@
     </ul>
   </nav>
 
-  <div class="container">
-    <h2>Book Your Flight</h2>
-    <form onsubmit="bookFlight(event)">
-      <label for="from">From</label>
-      <input type="text" id="from" placeholder="Departure City" required>
-      
-      <label for="to">To</label>
-      <input type="text" id="to" placeholder="Destination City" required>
-      
-      <label for="date">Date</label>
-      <input type="date" id="date" required>
-      
-      <button type="submit">Book Flight</button>
-    </form>
-  </div>
+<div class="container">
+    <h1>Available Flights</h1>
+    <div class="flight-list" id="flight-list"></div>
+    <div class="pagination">
+        <button id="prev-btn" disabled>Previous</button>
+        <span id="page-info">Page 1 of 1</span>
+        <button id="next-btn" disabled>Next</button>
+    </div>
+</div>
+
+<script>
+const flights = [
+    { id:1, flightNumber:'SF101', origin:'New York', destination:'London', date:'2024-10-25', price:650 },
+    { id:2, flightNumber:'SF102', origin:'London', destination:'New York', date:'2024-10-25', price:680 },
+    { id:3, flightNumber:'SF203', origin:'Paris', destination:'Tokyo', date:'2024-10-26', price:1200 },
+    { id:4, flightNumber:'SF204', origin:'Tokyo', destination:'Paris', date:'2024-10-26', price:1250 },
+    { id:5, flightNumber:'SF305', origin:'Sydney', destination:'Singapore', date:'2024-10-27', price:890 },
+    { id:6, flightNumber:'SF306', origin:'Singapore', destination:'Sydney', date:'2024-10-27', price:910 },
+];
+
+const flightsPerPage = 4;
+let currentPage = 1;
+
+const flightListEl = document.getElementById('flight-list');
+const prevBtn = document.getElementById('prev-btn');
+const nextBtn = document.getElementById('next-btn');
+const pageInfoEl = document.getElementById('page-info');
+
+function logout() {
+      localStorage.setItem("isLoggedIn","false");
+      window.location.href = "login.html";
+    }
+
+function renderFlights() {
+    flightListEl.innerHTML = '';
+    const start = (currentPage-1)*flightsPerPage;
+    const end = start+flightsPerPage;
+    const flightsToDisplay = flights.slice(start,end);
+
+    flightsToDisplay.forEach(flight => {
+        const card = document.createElement('div');
+        card.classList.add('flight-card');
+        card.innerHTML = `
+            <h3>Flight ${flight.flightNumber}</h3>
+            <p><strong>From:</strong> ${flight.origin}</p>
+            <p><strong>To:</strong> ${flight.destination}</p>
+            <p><strong>Date:</strong> ${flight.date}</p>
+            <p><strong>Price:</strong> $${flight.price}</p>
+        `;
+        card.addEventListener('click', () => {
+            localStorage.setItem('selectedFlight', JSON.stringify(flight));
+            window.location.href = 'payment.html';
+        });
+        flightListEl.appendChild(card);
+    });
+    updatePagination();
+}
+
+function updatePagination() {
+    const totalPages = Math.ceil(flights.length/flightsPerPage);
+    pageInfoEl.textContent = `Page ${currentPage} of ${totalPages}`;
+    prevBtn.disabled = currentPage===1;
+    nextBtn.disabled = currentPage===totalPages;
+}
+
+prevBtn.addEventListener('click', () => { currentPage--; renderFlights(); });
+nextBtn.addEventListener('click', () => { currentPage++; renderFlights(); });
+
+document.addEventListener('DOMContentLoaded', renderFlights);
+</script>
 </body>
 </html>

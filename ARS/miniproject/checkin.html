@@ -1,51 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Check-In - SkyWings</title>
-  <link rel="stylesheet" href="styles.css">
-  <script>
-    window.onload = () => {
-      if (localStorage.getItem("isLoggedIn") !== "true") {
-        alert("Please login first!");
-        window.location.href = "login.html";
-      }
+<meta charset="UTF-8">
+<title>Check-In - SkyWings</title>
+<link rel="stylesheet" href="styles.css">
+<script>
+window.onload = () => {
+    if(localStorage.getItem('isLoggedIn')!=='true'){
+        alert('Please login first!');
+        window.location.href='login.html';
     }
-    function checkIn(event) {
-      event.preventDefault();
-      const bookingId = document.getElementById("bookingId").value;
-      if (bookingId.trim() === "") {
-        alert("Please enter a booking ID");
-        return;
-      }
-      alert("Check-in successful for booking ID: " + bookingId);
+}
+
+function checkIn(event){
+    event.preventDefault();
+    const bookingId = document.getElementById('bookingId').value.trim();
+    const trips = JSON.parse(localStorage.getItem('trips')) || [];
+    const trip = trips.find(t => t.bookingId === bookingId);
+    if(trip){
+        alert('Check-in successful for booking ID: ' + bookingId + '\nFlight: ' + trip.flightNumber + ' (' + trip.from + ' → ' + trip.to + ')');
+    } else {
+        alert('Booking ID not found!');
     }
-    function logout() {
-      localStorage.setItem("isLoggedIn","false");
-      window.location.href = "login.html";
-    }
-  </script>
+}
+
+function logout(){ localStorage.setItem('isLoggedIn','false'); window.location.href='login.html'; }
+</script>
 </head>
 <body>
-  <nav>
+<nav>
     <h1>SkyWings</h1>
     <ul>
-      <li><a href="index.html">Home</a></li>
-      <li><a href="book.html">Book</a></li>
-      <li><a href="checkin.html">Check-In</a></li>
-      <li><a href="trips.html">My Trips</a></li>
-      <li><a href="contact.html">Contact</a></li>
-      <li><button onclick="logout()">Logout</button></li>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="book.html">Book</a></li>
+        <li><a href="checkin.html">Check-In</a></li>
+        <li><a href="trips.html">My Trips</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><button onclick="logout()">Logout</button></li>
     </ul>
-  </nav>
+</nav>
 
-  <div class="container">
+<div class="container">
     <h2>Check-In</h2>
     <form onsubmit="checkIn(event)">
-      <label>Booking ID</label>
-      <input type="text" id="bookingId" placeholder="Enter booking ID" required>
-      <button type="submit">Check-In</button>
+        <label>Booking ID</label><br>
+        <input type="text" id="bookingId" placeholder="Enter booking ID" required><br><br>
+        <button type="submit">Check-In</button>
     </form>
-  </div>
+</div>
 </body>
 </html>
