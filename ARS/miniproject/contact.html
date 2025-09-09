@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Contact - SkyWings</title>
+  <link rel="stylesheet" href="styles.css">
+  <script>
+    window.onload = () => {
+      if (localStorage.getItem("isLoggedIn") !== "true") {
+        alert("Please login first!");
+        window.location.href = "login.html";
+      }
+    }
+    function logout() {
+      localStorage.setItem("isLoggedIn","false");
+      window.location.href = "login.html";
+    }
+  </script>
+</head>
+<body>
+  <nav>
+    <h1>SkyWings</h1>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="book.html">Book</a></li>
+      <li><a href="checkin.html">Check-In</a></li>
+      <li><a href="trips.html">My Trips</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><button onclick="logout()">Logout</button></li>
+    </ul>
+  </nav>
+
+  <div class="container">
+    <h2>Contact Us</h2>
+    <div class="info">
+      <p>Email: support@skywings.com</p>
+      <p>Phone: +91 9876543210</p>
+      <p>Address: SkyWings Airlines HQ, Chennai, India</p>
+    </div>
+  </div>
+</body>
+</html>

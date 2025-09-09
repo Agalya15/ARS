@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My Trips - SkyWings</title>
+  <link rel="stylesheet" href="styles.css">
+  <script>
+    window.onload = () => {
+      if (localStorage.getItem("isLoggedIn") !== "true") {
+        alert("Please login first!");
+        window.location.href = "login.html";
+      }
+      const trips = JSON.parse(localStorage.getItem("trips")) || [];
+      const tableBody = document.getElementById("tripList");
+      trips.forEach((trip, index) => {
+        const row = `<tr>
+          <td>${index+1}</td>
+          <td>${trip.from}</td>
+          <td>${trip.to}</td>
+          <td>${trip.date}</td>
+        </tr>`;
+        tableBody.innerHTML += row;
+      });
+    }
+    function logout() {
+      localStorage.setItem("isLoggedIn","false");
+      window.location.href = "login.html";
+    }
+  </script>
+</head>
+<body>
+  <nav>
+    <h1>SkyWings</h1>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="book.html">Book</a></li>
+      <li><a href="checkin.html">Check-In</a></li>
+      <li><a href="trips.html">My Trips</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><button onclick="logout()">Logout</button></li>
+    </ul>
+  </nav>
+
+  <div class="container">
+    <h2>My Trips</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>From</th>
+          <th>To</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody id="tripList"></tbody>
+    </table>
+  </div>
+</body>
+</html>

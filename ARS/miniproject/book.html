@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SkyWings - Book Flight</title>
+  <link rel="stylesheet" href="styles.css">
+  <script>
+    function bookFlight(event) {
+      event.preventDefault();
+      const from = document.getElementById("from").value;
+      const to = document.getElementById("to").value;
+      const dateInput = document.getElementById("date").value;
+
+      if (!dateInput) {
+        alert("Please select a date.");
+        return;
+      }
+
+      const today = new Date();
+      today.setHours(0,0,0,0);
+      const selectedDate = new Date(dateInput);
+
+      if (selectedDate < today) {
+        alert("Invalid date! Please choose a future date.");
+        return;
+      }
+
+      const trips = JSON.parse(localStorage.getItem("trips")) || [];
+      trips.push({ from, to, date: dateInput });
+      localStorage.setItem("trips", JSON.stringify(trips));
+      alert("Flight booked successfully!");
+      window.location.href = "trips.html";
+    }
+
+    window.onload = () => {
+      if (localStorage.getItem("isLoggedIn") !== "true") {
+        alert("Please login first!");
+        window.location.href = "login.html";
+      }
+    }
+
+    function logout() {
+      localStorage.setItem("isLoggedIn","false");
+      window.location.href = "login.html";
+    }
+  </script>
+</head>
+<body>
+  <nav>
+    <h1>SkyWings</h1>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="book.html">Book</a></li>
+      <li><a href="checkin.html">Check-In</a></li>
+      <li><a href="trips.html">My Trips</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><button onclick="logout()">Logout</button></li>
+    </ul>
+  </nav>
+
+  <div class="container">
+    <h2>Book Your Flight</h2>
+    <form onsubmit="bookFlight(event)">
+      <label for="from">From</label>
+      <input type="text" id="from" placeholder="Departure City" required>
+      
+      <label for="to">To</label>
+      <input type="text" id="to" placeholder="Destination City" required>
+      
+      <label for="date">Date</label>
+      <input type="date" id="date" required>
+      
+      <button type="submit">Book Flight</button>
+    </form>
+  </div>
+</body>
+</html>

@@ -1,143 +1,81 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Airline Reservation System - Login</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            
-        }
-
-        body {
-            font-family: 'Segoe UI', sans-serif;
-            background: #f1f1f1;
-        }
-
-        .container {
-            display: flex;
-            height: 100vh;
-        }
-
-        .image-section {
-            flex: 1;
-            background-color: #e0f7fa;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-
-        .image-section img {
-            max-width: 90%;
-            max-height: 90%;
-            border-radius: 12px;
-            box-shadow: 0 0 15px rgba(0,0,0,0.2);
-        }
-
-        .form-section {
-            flex: 1;
-            background-color: white;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding: 40px;
-        }
-
-        .form-section h2 {
-            color: #00796b;
-            font-size: 45px;
-            margin-bottom: 25px;
-        }
-
-        label {
-            font-weight: bold;
-            margin-top: 15px;
-            display: block;
-        }
-
-        input[type="text"],
-        input[type="password"] {
-            width: 100%;
-            padding: 12px;
-            margin-top: 8px;
-            margin-bottom: 20px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-        }
-
-        button {
-            padding: 12px;
-            background-color: #00796b;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #004d40;
-        }
-
-        .error {
-            color: red;
-            font-size: 14px;
-            margin-top: -15px;
-            margin-bottom: 15px;
-        }
-    </style>
-
-<script>
-    function validateForm() {
-        const username = document.getElementById("username").value.trim();
-        const password = document.getElementById("password").value;
-
-        const usernamePattern = /^[A-Za-z]+$/;
-        let errors = "";
-
-        if (!usernamePattern.test(username)) {
-            errors += "Username must contain only alphabets.\n";
-        }
-
-        if (password.length < 8) {
-            errors += "Password must be at least 8 characters long.";
-        }
-
-        if (errors) {
-            alert(errors);
-            return false;
-        }
-
-        // Simulated login success
-        
-        window.location.href = "home.html"; // updated to your actual homepage
-        return false; // prevent actual form submission (optional here)
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SkyWings - Login</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #e0f2ff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+        background: url('image.png') no-repeat center center;
+  background-size: cover;
     }
-</script>
+    .card {
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      width: 350px;
+    }
+    h2 {
+      text-align: center;
+      color: #1e40af;
+      margin-bottom: 20px;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      background: #1e40af;
+      border: none;
+      color: #fff;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover { background: #0f2a75; }
+    p { text-align: center; margin-top: 10px; }
+    a { color: #1e40af; text-decoration: none; }
+  </style>
+  <script>
+    function login(event) {
+      event.preventDefault();
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      const users = JSON.parse(localStorage.getItem("users")) || [];
+      const found = users.find(u => u.email === email && u.password === password);
+
+      if (found) {
+        localStorage.setItem("isLoggedIn", "true");
+        //alert("Login successful!");
+        window.location.href = "index.html";
+      } else {
+        alert("Invalid email or password!");
+      }
+    }
+  </script>
 </head>
-
 <body>
-    <div class="container">
-        <div class="image-section">
-            <img src="image.png" alt="Airline Image">
-        </div>
-
-        <div class="form-section">
-            <h2>Login.</h2>
-            <form onsubmit="return validateForm()">
-                <label for="username">Username:</label>
-                <input type="text" id="username" placeholder="Enter your name" required>
-
-                <label for="password">Password:</label>
-                <input type="password" id="password" placeholder="Enter password" required>
-
-                <button type="submit">Login</button>
-                <p style="margin-top: 15px;">Don't have an account? <a href="signup.html" style="color: #00796b;">Sign up here</a></p>
-
-            </form>
-        </div>
-    </div>
+  <div class="card">
+    <h2>Login</h2>
+    <form onsubmit="login(event)">
+      <input type="email" id="email" placeholder="Enter email" required>
+      <input type="password" id="password" placeholder="Enter password" required>
+      <button type="submit">Login</button>
+    </form>
+    <p>Don’t have an account? <a href="signup.html">Sign up</a></p>
+  </div>
 </body>
 </html>
